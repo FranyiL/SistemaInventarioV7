@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace SistemaInventarioV7.Data
+namespace SistemaInventarioV7.AccesoDatos.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
