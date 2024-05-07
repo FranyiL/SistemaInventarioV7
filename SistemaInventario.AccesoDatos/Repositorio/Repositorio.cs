@@ -87,12 +87,12 @@ namespace SistemaInventario.AccesoDatos.Repositorio
 
         public void Remover(T entidad)
         {
-            throw new NotImplementedException();
+            dbSet.Remove(entidad);
         }
 
         public void RemoverRango(IEnumerable<T> entidad)
         {
-            throw new NotImplementedException();
+            dbSet.RemoveRange(entidad);
         }
     }
 }
