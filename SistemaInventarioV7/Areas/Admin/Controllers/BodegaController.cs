@@ -99,14 +99,14 @@ namespace SistemaInventarioV7.Areas.Admin.Controllers
             }
             else
             {
-                valor = lista.Any(b => b.Nombre.ToLower().Trim() == nombre.ToLower().Trim() && b.Id != id);
+                valor = lista.Any(b => b.Nombre.ToLower().Trim() == nombre.ToLower().Trim() && b.Id != id);                
             }
-
             if (valor)
             {
-                Json(new { data = true });
+                return Json(new { data = true });
             }
             return Json(new { data = false });
+
         }
         #endregion
     }

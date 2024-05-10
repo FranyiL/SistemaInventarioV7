@@ -70,20 +70,21 @@
     <partial name="_ValidationScriptsPartial" />
 
     <script>
-        document.getElementById("nombre").addEventListener('change', () => {
-            ValidarNombre();
+        document.getElementById("nombre").addEventListener("change", () => {
+            validarNombre();
         });
 
-        let ValidarNombre = () => {
+
+        function validarNombre() {
             var url = '@Url.Content("~/")' + "Admin/Bodega/ValidarNombre";
             var id = '#id';
             var nombre = '#nombre';
 
-            $.getJSON(url, { id: $(id).val(), nombre: $(nombre).val() }, (data) => {
-                $.each(data, (key, value) => {
-                    if (value) {
+            $.getJSON(url, { id: $(id).val(), nombre: $(nombre).val() }, function (data) {
+                $.each(data, function (key, value) {
+                    if (value) { 
                         var nombre = document.getElementById("nombre");
-                        swal("Error", "Nombre ya existe.", "error");
+                        swal("Error", "El nombre del almacén ya existe", "error");
                         nombre.value = "";
                     }
                 });
