@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>aspnet-SistemaInventarioV7-ee6cb39e-8a13-401c-a6d0-5c9ecaea0d02</UserSecretsId>
   </PropertyGroup>
