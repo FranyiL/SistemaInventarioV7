@@ -44,7 +44,7 @@ namespace SistemaInventarioV7.Areas.Admin.Controllers
                     return NotFound();
                 }
 
-                return View(productoVM);
+                return View();
             }
 
 
