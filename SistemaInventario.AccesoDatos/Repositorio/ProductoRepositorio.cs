@@ -41,7 +41,7 @@ namespace SistemaInventario.AccesoDatos.Repositorio
             }
         }
 
-        public IEnumerable<SelectListItem> ObtenerTodosDropdowLista(string obj)
+        public IEnumerable<SelectListItem> ObtenerTodosDropdownLista(string obj)
         {
             if (obj == "Categoria")
             {
@@ -58,6 +58,15 @@ namespace SistemaInventario.AccesoDatos.Repositorio
                 {
                     Text = m.Nombre,
                     Value = m.Id.ToString()
+                });
+            }
+
+            if (obj == "Producto")
+            {
+                return _db.Productos.Where(p => p.Estado == true).Select(p => new SelectListItem
+                {
+                    Text = p.Descripcion,
+                    Value = p.Id.ToString()
                 });
             }
 

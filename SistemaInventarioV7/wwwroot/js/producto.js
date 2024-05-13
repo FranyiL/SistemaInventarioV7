@@ -1,10 +1,10 @@
 ﻿let datatable;
 
-$(document).ready(() => {
+$(document).ready(function () {
     loadDataTable();
 });
 
-let loadDataTable = () => {
+function loadDataTable() {
     datatable = $('#tblDatos').DataTable({
         "language": {
             "lengthMenu": "Mostrar _MENU_ Registros Por Pagina",
@@ -21,55 +21,57 @@ let loadDataTable = () => {
             }
         },
         "ajax": {
-            "url":"/Admin/Producto/ObtenerTodos"
+            "url": "/Admin/Producto/ObtenerTodos"
         },
         "columns": [
-            {"data":"numeroSerie"},
-            {"data":"descripcion"},
-            {"data":"categoria.nombre"},
-            {"data":"marca.nombre"},
+            { "data": "numeroSerie" },
+            { "data": "descripcion" },
+            { "data": "categoria.nombre" },
+            { "data": "marca.nombre" },
             {
                 "data": "precio", "className": "text-end",
-                "render": (data) => {
-                    var formatoDolar = data.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-
-                    return formatoDolar;
+                "render": function (data) {
+                    var d = data.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                    return d
                 }
             },
-            {"data":""},
             {
                 "data": "estado",
-                "render": (data) => {
+                "render": function (data) {
                     if (data == true) {
                         return "Activo";
-                    } else {
+                    }
+                    else {
                         return "Inactivo";
                     }
                 }
             },
             {
                 "data": "id",
-                "render": (data) => {
+                "render": function (data) {
                     return `
-                          <div class="text-center">
-                             <a href="/Admin/Producto/Upsert/${data}" class="btn btn-success text-white" style="cursor:pointer">
-                                <i class="bi bi-pencil-square"></i>
-                             </a>
-                             <a onclick=Delete("/Admin/Producto/Delete/${data}") class="btn btn-danger text-white" style="cursor:pointer">
+                        <div class="text-center">
+                           <a href="/Admin/Producto/Upsert/${data}" class="btn btn-success text-white" style="cursor:pointer">
+                              <i class="bi bi-pencil-square"></i>  
+                           </a>
+                           <a onclick=Delete("/Admin/Producto/Delete/${data}") class="btn btn-danger text-white" style="cursor:pointer">
                                 <i class="bi bi-trash3-fill"></i>
-                             </a>
-                          </div>
+                           </a> 
+                        </div>
                     `;
-                }, "width":"20%"
+                }, "width": "20%"
             }
         ]
+
     });
 }
 
-let Delete = (url) => {
+
+function Delete(url) {
+
     swal({
-        title: "¿Estás seguro de eliminar el producto?",
-        text: "Este registro no se podrá recuperar",
+        title: "Esta seguro de Eliminar el Producto?",
+        text: "Este registro no se podra recuperar",
         icon: "warning",
         buttons: true,
         dangerMode: true
@@ -78,11 +80,12 @@ let Delete = (url) => {
             $.ajax({
                 type: "POST",
                 url: url,
-                success: (data) => {
+                success: function (data) {
                     if (data.success) {
                         toastr.success(data.message);
                         datatable.ajax.reload();
-                    } else {
+                    }
+                    else {
                         toastr.error(data.message);
                     }
                 }

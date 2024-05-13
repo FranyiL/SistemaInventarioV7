@@ -12,6 +12,6 @@ namespace SistemaInventario.AccesoDatos.Repositorio.IRepositorio
     {
         void Actualizar(Producto producto);
 
-        IEnumerable<SelectListItem> ObtenerTodosDropdowLista(string obj);
+        IEnumerable<SelectListItem> ObtenerTodosDropdownLista(string obj);
     }
 }
