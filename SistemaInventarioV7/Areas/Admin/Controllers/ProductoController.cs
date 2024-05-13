@@ -46,8 +46,6 @@ namespace SistemaInventarioV7.Areas.Admin.Controllers
 
                 return View();
             }
-
-
         }
 
         #region API
