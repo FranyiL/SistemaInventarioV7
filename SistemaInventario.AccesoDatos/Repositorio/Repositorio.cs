@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SistemaInventario.AccesoDatos.Repositorio.IRepositorio;
+using SistemaInventario.Modelos.Especificaciones;
 using SistemaInventarioV7.AccesoDatos.Data;
 using System;
 using System.Collections.Generic;
@@ -61,6 +62,35 @@ namespace SistemaInventario.AccesoDatos.Repositorio
 
         }
 
+        public PagesList<T> ObtenerTodosPaginado(Parametros parametros, Expression<Func<T, bool>> filtro = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string incluirPropiedades = null, bool isTracking = true)
+        {
+            IQueryable<T> query = dbSet;
+            if (filtro != null)
+            {
+                query = query.Where(filtro); //Select * from where ...
+            }
+
+            if (incluirPropiedades != null)
+            {
+                foreach (var incluirProp in incluirPropiedades.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(incluirProp);     //ejemplo "Categoría,Marca" 
+                }
+            }
+
+            if (orderBy != null)
+            {
+                query = orderBy(query);
+            }
+
+            if (!isTracking)
+            {
+                query = query.AsNoTracking();
+            }
+
+            return PagesList<T>.ToPagesList(query,parametros.PageNumber, parametros.PageSize);
+        }
+
         public async Task<T> ObtenerPrimero(Expression<Func<T, bool>> filtro = null,
             string incluirPropiedades = null, bool isTracking = true)
         {
@@ -94,5 +124,6 @@ namespace SistemaInventario.AccesoDatos.Repositorio
         {
             dbSet.RemoveRange(entidad);
         }
+
     }
 }

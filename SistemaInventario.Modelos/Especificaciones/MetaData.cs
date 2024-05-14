@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace SistemaInventario.Modelos.Especificaciones
 {
-    public class Parametros
+    public class MetaData
     {
-        public int PageNumber { get; set; } = 1;
-        public int PageSize { get; set; } = 4;
+        public int TotalPages { get; set; }
+        public int PageSize { get; set; }
+        public int TotalCount { get; set; }
     }
 }
