@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using SistemaInventario.AccesoDatos.Repositorio.IRepositorio;
 using SistemaInventario.Modelos;
@@ -8,6 +9,8 @@ using SistemaInventario.Utilidades;
 namespace SistemaInventarioV7.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    //De esta manera autorizamos que usuario puede acceder a las rutas
+    [Authorize(Roles = DS.Rol_Admin + "," + DS.Rol_Inventario)]
     public class ProductoController : Controller
     {
 

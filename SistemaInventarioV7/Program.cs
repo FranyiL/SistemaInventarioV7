@@ -19,6 +19,13 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.Sign
     .AddErrorDescriber<ErrorDescriber>()
     .AddDefaultTokenProviders()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = $"/Identity/Account/Login";
+    options.LogoutPath = $"/Identity/Account/Logout";
+    options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+});
 //Configuración para cambiar las reglas de la contraseña para el registro de usuario
 builder.Services.Configure<IdentityOptions>(options =>
 {
@@ -55,6 +62,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
