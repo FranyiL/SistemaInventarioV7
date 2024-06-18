@@ -40,6 +40,7 @@ namespace SistemaInventario.Modelos
         public DateTime FechaMaximaPago { get; set; }
 
         public string TransaccionId { get; set; }
+        public string SessionId { get; set; }
 
         public string Telefono { get; set; }
 

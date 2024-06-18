@@ -5,7 +5,8 @@ using NuGet.Protocol.Core.Types;
 using SistemaInventario.AccesoDatos.Repositorio;
 using SistemaInventario.AccesoDatos.Repositorio.IRepositorio;
 using SistemaInventario.Utilidades;
-using SistemaInventarioV7.AccesoDatos.Data; 
+using SistemaInventarioV7.AccesoDatos.Data;
+using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -52,6 +53,9 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
+//Conectando la clase StripeSettings Stripe.
+builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -68,6 +72,8 @@ else
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+//Configuración de la API de Stripe.
+StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
 
 app.UseRouting();
 
